@@ -2,7 +2,7 @@ import { FC } from "react";
 import NetworkMembersSection from "@/app/network/[networkId]/members/networkMembers";
 import { Member } from "@/types/networkMember";
 import { getServerSession } from "next-auth";
-import { authOptions } from "@/app/api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 
 interface NetworkMembersPageProps {
   params: Promise<{ networkId: string }>;

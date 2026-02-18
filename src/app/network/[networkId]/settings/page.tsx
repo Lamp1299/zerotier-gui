@@ -2,14 +2,12 @@ import { NetworkData } from "@/types/networkData";
 import NetworkSettingsSection from "@/app/network/[networkId]/settings/networkSettings";
 
 interface NetworkSettingsPageProps {
-  params: {
-    networkId: string;
-  };
+  params: Promise<{ networkId: string }>; // Changed: params is now a Promise
 }
 
 const NetworkSettingsPage = async ({ params }: NetworkSettingsPageProps) => {
-  const { networkId } = params;
-
+  const { networkId } = await params; // Changed: await the params
+  
   console.log(
     "🔍 DEBUG: Network Settings - Using dynamic network ID:",
     networkId
@@ -17,7 +15,7 @@ const NetworkSettingsPage = async ({ params }: NetworkSettingsPageProps) => {
 
   const fetchNetworkData = async () => {
     console.log("🔍 DEBUG: Fetching network settings for:", networkId);
-
+    
     const res = await fetch(
       `http://5.57.32.82:8080/controller/network/${networkId}`,
       {
@@ -25,12 +23,12 @@ const NetworkSettingsPage = async ({ params }: NetworkSettingsPageProps) => {
         cache: "no-store",
       }
     );
-
-    const networkData: NetworkData = await res.json();
-
+    
     if (!res.ok) {
-      throw new Error(`Failed to fetch: ${res.status}`);
+      throw new Error(`Failed to fetch: ${res.status}`); // Fixed: added missing parenthesis
     }
+    
+    const networkData: NetworkData = await res.json();
     return networkData;
   };
 

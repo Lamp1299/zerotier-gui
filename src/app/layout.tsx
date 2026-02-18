@@ -13,7 +13,7 @@ import { ModeToggler } from "@/components/mode-toggler";
 import { Toaster } from "react-hot-toast";
 import { Providers } from "@/components/providers";
 import { getServerSession } from "next-auth";
-import { authOptions } from "./api/auth/[...nextauth]/route";
+import { authOptions } from "@/lib/auth";
 import LoginSignupFrame from "@/components/ui/login-signup-frame";
 
 const geistSans = Geist({
